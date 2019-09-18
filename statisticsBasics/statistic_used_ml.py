@@ -237,8 +237,69 @@ Mean of salary is 52.5 so the boss thinks that oooo I gave a lot of salary to my
 Median avoids outliers
 Now median of the salary is 3 and it is less than 5 and employees will take raise in their sallaries and they are happy and this situation is fair
 """
+"""
+> Hypothesis Testing
+Hypothesis Testing
+Classical Hypothesis Testing
+We want to answer this question: "given a sample and a apparent effecti what is the probability of seeing such an effect by chance"
+The first step is to quantify the size of the apparent effect by choosing a test statistic. Natural choice for the test statistic is the difference in means between two groups.
+The second step is to define null hypothesis that is model of the system based on the assumption that the apparent effect is not real. A null hypothesis is a type of hypothesis used in statistics that proposes that no statistical significance exists in a set of given observations. The null hypothesis is a hypothesis which people tries to disprove it. Alternative hypothesis is a hypothesis which people want to tries to prove it.
+Third step is compute p-value that is probablity of seeing the apparent effect if the null hypothesis is true. Suppose we have null hypothesis test. Then we calculate p value. If p value is less than or equal to a threshold, we reject null hypothesis.
+If the p-value is low, the effect is said to be statistacally significant that means that it is unlikely to have occured by chance. Therefore we can say that the effect is more likely to appear in the larger population.
+Lets have an example. Null hypothesis: world is flatten. Alternative hypothesis: world is round. Several scientists set out to disprove the null hypothesis. This eventually led to the refection of the null hypothesis and acceptance of the alternative hypothesis.
+Other example. "this effect is real" this is null hypothesis. Based on that assumption we compute the probability of the apparent effect. That is the p-value. If p-value is low, we conclude that null hypothesis is unlikely to be true.
+Now lets make our example:
+I want to learn that are radius mean and area mean related with each other? My null hypothesis is that "relationship between radius mean and area mean is zero in tumor population'.
+Now we need to refute this null hypothesis in order to demonstrate that radius mean and area mean are related. (actually we know it from our previous experiences)
+lets find p-value (probability value)
+"""
+statistic, p_value =  stats.ttest_rel(data.radius_mean, data.area_mean)
+print('p-value' , p_value) # pvalue is almost zero so we can reject null hypothesis
 
+"""
+Normal(Gaussian) Distribution and z-score
+Also called bell shaped distribution
+Instead of making formal definition of gaussian distribution, I want to explain it with an example.
+The classic example is gaussian is IQ score.
+In the world lets say average IQ is 110.
+There are few people that are super intelligent and their IQs are higher than 110. It can be 140 or 150 but it is rare.
+Also there are few people that have low intelligent and their IQ is lower than 110. It can be 40 or 50 but it is rare.
+From these information we can say that mean of IQ is 110. And lets say standart deviation is 20.
+Mean and standart deviation is parameters of normal distribution.
+Lets create 100000 sample and visualize it with histogram.
+"""
+# parameters of normal distribution
+mu, sigma = 110, 20  # mean and standard deviation
+s = np.random.normal(mu, sigma, 100000)
+print("mean: ", np.mean(s))
+print("standart deviation: ", np.std(s))
+# visualize with histogram
+plt.figure(figsize = (10,7))
+plt.hist(s, 100, normed=False)
+plt.ylabel("frequency")
+plt.xlabel("IQ")
+plt.title("Histogram of IQ")
+plt.show()
 
+"""
+As it can be seen from histogram most of the people are cumulated near to 110 that is mean of our normal distribution
+However what is the "most" I mentioned at previous sentence? What if I want to know what percentage of people should have an IQ score between 80 and 140?
+We will use z-score the answer this question.
+* z = (x - mean)/std 
+* z1 = (80-110)/20 = -1.5
+* z2 = (140-110)/20 = 1.5
+* Distance between mean and 80 is 1.5std and distance between mean and 140 is 1.5std.
+* If you look at z table, you will see that 1.5std correspond to 0.4332
 
+* Lets calculate it with 2 because 1 from 80 to mean and other from mean to 140
+* 0.4332 * 2 = 0.8664
+* 86.64 % of people has an IQ between 80 and 140.
+
+What percentage of people should have an IQ score less than 80?
+z = (110-80)/20 = 1.5
+Lets look at table of z score 0.4332. 43.32% of people has an IQ between 80 and mean(110).
+If we subtract from 50% to 43.32%, we ca n find percentage of people have an IQ score less than 80.
+50-43.32 = 6.68. As a result, 6.68% of people have an IQ score less than 80.
+"""
 
    
