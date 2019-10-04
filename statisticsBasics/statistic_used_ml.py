@@ -112,7 +112,8 @@ print("Describe : ",data_benign.radius_mean.describe())
 CDF
 Cumulative distribution function is the probability that the variable takes a value less than or equal to x. P(X <= x)
 Lets explain in cdf graph of bening radiues mean
-in graph, what is P(12 < X)? The answer is 0.5. The probability that the variable takes a values less than or equal to 12(radius mean) is 0.5.
+in graph, what is P(12 < X)? The answer is 0.5. The probability that the variable takes a values less than or equal to 12(radius mean)
+is 0.5.
 You can plot cdf with two different method
 """
 plt.hist(data_benign.radius_mean,bins=50,fc=(0,1,0,0.5),label='Bening',normed = True,cumulative = True)
@@ -130,7 +131,8 @@ In an other saying, effect size emphasises the size of the difference
 Use cohen effect size
 Cohen suggest that if d(effect size)= 0.2, it is small effect size, d = 0.5 medium effect size, d = 0.8 large effect size.
 lets compare size of the effect between bening radius mean and malignant radius mean
-Effect size is 2.2 that is too big and says that two groups are different from each other as we expect. Because our groups are bening radius mean and malignant radius mean that are different from each other
+Effect size is 2.2 that is too big and says that two groups are different from each other as we expect. Because our groups are 
+bening radius mean and malignant radius mean that are different from each other
 """
 mean_diff = data_malignant.radius_mean.mean() - data_benign.radius_mean.mean()
 var_bening = data_benign.radius_mean.var()
@@ -142,12 +144,15 @@ print("Effect size: ",effect_size)
 """
 Relationship Between Variables
 We can say that two variables are related with each other, if one of them gives information about others
-For example, price and distance. If you go long distance with taxi you will pay more. There fore we can say that price and distance are positively related with each other.
+For example, price and distance. If you go long distance with taxi you will pay more. There fore we can say that price and distance
+are positively related with each other.
 Scatter Plot
 Simplest way to check relationship between two variables
 Lets look at relationship between radius mean and area mean
-In scatter plot you can see that when radius mean increases, area mean also increases. Therefore, they are positively correlated with each other.
-There is no correlation between area mean and fractal dimension se. Because when area mean changes, fractal dimension se is not affected by chance of area mean
+In scatter plot you can see that when radius mean increases, area mean also increases. Therefore, they are positively correlated with
+each other.
+There is no correlation between area mean and fractal dimension se. Because when area mean changes, fractal dimension se is not
+affected by chance of area mean
 """
 plt.figure(figsize = (15,10))
 sns.jointplot(data.radius_mean,data.area_mean,kind="regg")
@@ -172,7 +177,9 @@ Huge matrix that includes a lot of numbers
 The range of this numbers are -1 to 1.
 Meaning of 1 is two variable are positively correlated with each other like radius mean and area mean
 Meaning of zero is there is no correlation between variables like radius mean and fractal dimension se
-Meaning of -1 is two variables are negatively correlated with each other like radius mean and fractal dimension mean.Actually correlation between of them is not -1, it is -0.3 but the idea is that if sign of correlation is negative that means that there is negative correlation.
+Meaning of -1 is two variables are negatively correlated with each other like radius mean and fractal dimension mean.
+Actually correlation between of them is not -1, it is -0.3 but the idea is that if sign of correlation is negative that means 
+that there is negative correlation.
 """
 f,ax=plt.subplots(figsize = (18,18))
 sns.heatmap(data.corr(),annot= True,linewidths=0.5,fmt = ".1f",ax=ax)
@@ -201,7 +208,8 @@ Lets look at pearson correlation between radius mean and area mean
 First lets use .corr() method that we used actually at correlation part. In correlation part we actually used pearson correlation :)
 p1 and p2 is the same. In p1 we use corr() method, in p2 we apply definition of pearson correlation (cov(A,B)/(std(A)*std(B)))
 As we expect pearson correlation between area_mean and area_mean is 1 that means that they are same distribution
-Also pearson correlation between area_mean and radius_mean is 0.98 that means that they are positively correlated with each other and relationship between of the is very high.
+Also pearson correlation between area_mean and radius_mean is 0.98 that means that they are positively correlated with each other
+and relationship between of the is very high.
 To be more clear what we did at correlation part and pearson correlation part is same.
 """
 p1 = data.loc[:,["area_mean","radius_mean"]].corr(method= "pearson")
@@ -212,7 +220,8 @@ print('Pearson correlation: ',p2)
 
 """
 Spearman's Rank Correlation
-Pearson correlation works well if the relationship between variables are linear and variables are roughly normal. But it is not robust, if there are outliers
+Pearson correlation works well if the relationship between variables are linear and variables are roughly normal. But it is not
+robust, if there are outliers
 To compute spearman's correlation we need to compute rank of each value
 
 conslusion
@@ -227,30 +236,43 @@ print(spearman_corr)
 """
 Mean VS Median
 Sometimes instead of mean we need to use median. I am going to explain why we need to use median with an example
-Lets think that there are 10 people who work in a company. Boss of the company will make raise in their salary if their mean of salary is smaller than 5
+Lets think that there are 10 people who work in a company. Boss of the company will make raise in their salary if their mean of
+salary is smaller than 5
 """
 salary = [1,4,3,2,5,4,2,3,1,500]
 print("Mean of salary: ",np.mean(salary))
 print("Median of salary: ",np.median(salary))
 """
-Mean of salary is 52.5 so the boss thinks that oooo I gave a lot of salary to my employees. And do not makes raise in their salaries. However as you know this is not fair and 500(salary) is outlier for this salary list.
+Mean of salary is 52.5 so the boss thinks that oooo I gave a lot of salary to my employees. And do not makes raise in their salaries. 
+However as you know this is not fair and 500(salary) is outlier for this salary list.
 Median avoids outliers
-Now median of the salary is 3 and it is less than 5 and employees will take raise in their sallaries and they are happy and this situation is fair
+Now median of the salary is 3 and it is less than 5 and employees will take raise in their sallaries and they are happy and this 
+situation is fair
 """
 """
 > Hypothesis Testing
 Hypothesis Testing
 Classical Hypothesis Testing
 We want to answer this question: "given a sample and a apparent effecti what is the probability of seeing such an effect by chance"
-The first step is to quantify the size of the apparent effect by choosing a test statistic. Natural choice for the test statistic is the difference in means between two groups.
-The second step is to define null hypothesis that is model of the system based on the assumption that the apparent effect is not real. A null hypothesis is a type of hypothesis used in statistics that proposes that no statistical significance exists in a set of given observations. The null hypothesis is a hypothesis which people tries to disprove it. Alternative hypothesis is a hypothesis which people want to tries to prove it.
-Third step is compute p-value that is probablity of seeing the apparent effect if the null hypothesis is true. Suppose we have null hypothesis test. Then we calculate p value. If p value is less than or equal to a threshold, we reject null hypothesis.
-If the p-value is low, the effect is said to be statistacally significant that means that it is unlikely to have occured by chance. Therefore we can say that the effect is more likely to appear in the larger population.
-Lets have an example. Null hypothesis: world is flatten. Alternative hypothesis: world is round. Several scientists set out to disprove the null hypothesis. This eventually led to the refection of the null hypothesis and acceptance of the alternative hypothesis.
-Other example. "this effect is real" this is null hypothesis. Based on that assumption we compute the probability of the apparent effect. That is the p-value. If p-value is low, we conclude that null hypothesis is unlikely to be true.
+The first step is to quantify the size of the apparent effect by choosing a test statistic. Natural choice for the test statistic is
+the difference in means between two groups.
+The second step is to define null hypothesis that is model of the system based on the assumption that the apparent effect is not real.
+A null hypothesis is a type of hypothesis used in statistics that proposes that no statistical significance exists in a set of given 
+observations. The null hypothesis is a hypothesis which people tries to disprove it. Alternative hypothesis is a hypothesis which 
+people want to tries to prove it.
+Third step is compute p-value that is probablity of seeing the apparent effect if the null hypothesis is true. Suppose we have null 
+hypothesis test. Then we calculate p value. If p value is less than or equal to a threshold, we reject null hypothesis.
+If the p-value is low, the effect is said to be statistacally significant that means that it is unlikely to have occured by chance. 
+Therefore we can say that the effect is more likely to appear in the larger population.
+Lets have an example. Null hypothesis: world is flatten. Alternative hypothesis: world is round. Several scientists set out to 
+disprove the null hypothesis. This eventually led to the refection of the null hypothesis and acceptance of the alternative hypothesis.
+Other example. "this effect is real" this is null hypothesis. Based on that assumption we compute the probability of 
+the apparent effect. That is the p-value. If p-value is low, we conclude that null hypothesis is unlikely to be true.
 Now lets make our example:
-I want to learn that are radius mean and area mean related with each other? My null hypothesis is that "relationship between radius mean and area mean is zero in tumor population'.
-Now we need to refute this null hypothesis in order to demonstrate that radius mean and area mean are related. (actually we know it from our previous experiences)
+I want to learn that are radius mean and area mean related with each other? My null hypothesis is that "relationship between radius
+mean and area mean is zero in tumor population'.
+Now we need to refute this null hypothesis in order to demonstrate that radius mean and area mean are related. (actually we know it 
+from our previous experiences)
 lets find p-value (probability value)
 """
 statistic, p_value =  stats.ttest_rel(data.radius_mean, data.area_mean)
@@ -283,7 +305,8 @@ plt.show()
 
 """
 As it can be seen from histogram most of the people are cumulated near to 110 that is mean of our normal distribution
-However what is the "most" I mentioned at previous sentence? What if I want to know what percentage of people should have an IQ score between 80 and 140?
+However what is the "most" I mentioned at previous sentence? What if I want to know what percentage of people should have an IQ 
+score between 80 and 140?
 We will use z-score the answer this question.
 * z = (x - mean)/std 
 * z1 = (80-110)/20 = -1.5
